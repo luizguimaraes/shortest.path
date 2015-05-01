@@ -2,85 +2,59 @@ package br.com.s2it.shortest.path.model;
 
 import static com.google.common.base.MoreObjects.toStringHelper;
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Objects;
 
 @Entity
-@IdClass(Arch.ArchId.class)
 public class Arch implements Serializable {
 
-	public static class ArchId implements Serializable {
-
-		private static final long serialVersionUID = 3370333180130223920L;
-
-		private String begin;
-		private String end;
-
-		public String getBegin() {
-			return begin;
-		}
-
-		public void setBegin(final String begin) {
-			this.begin = begin;
-		}
-
-		public String getEnd() {
-			return end;
-		}
-
-		public void setEnd(final String end) {
-			this.end = end;
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hashCode(begin, end);
-		}
-
-		@Override
-		public boolean equals(final Object obj) {
-			if (!(obj instanceof ArchId)) {
-				return false;
-			}
-			final ArchId otherArch = (ArchId) obj;
-			return otherArch.begin.equals(begin) && otherArch.end.equals(end);
-		}
-	}
-
-	private static final long serialVersionUID = -8963009267710119185L;
+	private static final long serialVersionUID = 2490963852451667075L;
 
 	@Id
+	@GeneratedValue
+	private int id;
+
 	@Column(nullable = false)
 	private String begin;
-	@Id
+
 	@Column(nullable = false)
 	private String end;
 
 	@Column(nullable = false)
 	private int distance;
 
+	@ManyToOne
+	@JoinColumn(name = "map_id", insertable = false, updatable = false)
+	private Map map;
+
 	// Para uso do JPA
 	protected Arch() {
 	}
 
+	@VisibleForTesting
 	public Arch(@NotNull final String begin, @NotNull final String end,
-			final int distance) {
+			final int distance, @NotNull final Map map) {
 		checkArgument(begin != null && !begin.isEmpty(),
-				"begin cannot be nnull or empty");
+				"begin cannot be null or empty");
 		checkArgument(end != null && !end.isEmpty(),
-				"end cannot be nnull or empty");
+				"end cannot be null or empty");
 		checkArgument(distance > 0, "distance must be greater than 0");
 		this.begin = begin;
 		this.end = end;
 		this.distance = distance;
+		this.map = checkNotNull(map, "map cannot be null");
 	}
 
 	public String getBegin() {

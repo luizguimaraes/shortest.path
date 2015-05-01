@@ -22,7 +22,8 @@ public class ArchToNodeConverterImplTest {
 
 	@Test
 	public void convertOneArchTest() {
-		final Arch arch = new Arch("A", "B", 1);
+		final Arch arch = new Arch("A", "B", 1,
+				new br.com.s2it.shortest.path.model.Map());
 		final Map<String, Node> nodesByName = archToNodeConverterImpl
 				.convert(singleton(arch));
 

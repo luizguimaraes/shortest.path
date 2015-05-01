@@ -1,5 +1,6 @@
 package br.com.s2it.shortest.path.algorithm;
 
+import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.google.common.base.MoreObjects.toStringHelper;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -130,7 +131,10 @@ public class Node {
 		checkArgument(!node.equals(this), "node cannot be equal to this");
 		checkArgument(distance > 0, "distance must be greater than 0");
 
-		neighours.put(node, distance);
+		// Armazena apenas o arco com menor distância
+		if (firstNonNull(neighours.get(node), Integer.MAX_VALUE) > distance) {
+			neighours.put(node, distance);
+		}
 	}
 
 	@Override
