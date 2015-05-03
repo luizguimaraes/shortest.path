@@ -1,45 +1,58 @@
 package br.com.s2it.shortest.path.model;
 
-import java.util.Set;
+import static com.google.common.base.Objects.equal;
+
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Objects;
 
 @Entity
 public class Map {
 
 	@Id
-	private int id;
+	@GeneratedValue
+	private Integer id;
 
+	@NotEmpty
 	@Column(nullable = true)
 	private String name;
 
+	@NotEmpty
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "map_id", nullable = false, foreignKey = @ForeignKey(name = "arch_map_fk"))
-	private Set<Arch> arches;
+	private List<Arch> arches;
 
 	@VisibleForTesting
 	public Map() {
 	}
 
-	public Set<Arch> getArches() {
+	public String getName() {
+		return name;
+	}
+
+	public List<Arch> getArches() {
 		return arches;
 	}
 
 	@Override
 	public int hashCode() {
-		return name.hashCode();
+		return Objects.hashCode(name);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof Map && ((Map) obj).name.equals(name);
+		return obj instanceof Map && equal(((Map) obj).name, name);
 	}
 }

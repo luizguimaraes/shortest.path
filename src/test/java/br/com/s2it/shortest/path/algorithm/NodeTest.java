@@ -71,4 +71,14 @@ public class NodeTest {
 		a.markAsVisited(null);
 		b.markAsVisited(a);
 	}
+
+	@Test
+	public void addTwoPathToSameNeighbourTest() {
+		final Node a = new Node("A");
+		final Node b = new Node("B");
+		a.addNeighbour(b, 1);
+		a.addNeighbour(b, 2);
+
+		assertEquals(1, a.distanceToNeighbour(b));
+	}
 }

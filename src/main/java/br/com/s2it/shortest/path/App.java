@@ -1,6 +1,7 @@
 package br.com.s2it.shortest.path;
 
-import org.springframework.boot.SpringApplication;
+import static org.springframework.boot.SpringApplication.run;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -14,6 +15,6 @@ import org.springframework.context.annotation.ComponentScan;
 		"br.com.s2it.shortest.path.model" })
 public class App {
 	public static void main(String[] args) {
-		SpringApplication.run(App.class, args);
+		run(App.class, args);
 	}
 }

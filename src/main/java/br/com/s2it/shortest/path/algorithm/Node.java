@@ -9,6 +9,7 @@ import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.filter;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
+import static org.h2.util.StringUtils.isNullOrEmpty;
 
 import java.util.List;
 import java.util.Map;
@@ -46,8 +47,7 @@ public class Node {
 	private int distanceToReachNode = -1;
 
 	public Node(@NotNull final String name) {
-		checkArgument(name != null && !name.isEmpty(),
-				"name cannot be null nor empty");
+		checkArgument(!isNullOrEmpty(name), "name cannot be null nor empty");
 		this.name = name;
 	}
 

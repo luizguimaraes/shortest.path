@@ -1,8 +1,10 @@
 package br.com.s2it.shortest.path.model;
 
 import static com.google.common.base.MoreObjects.toStringHelper;
+import static com.google.common.base.Objects.equal;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.h2.util.StringUtils.isNullOrEmpty;
 
 import java.io.Serializable;
 
@@ -12,7 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Objects;
@@ -24,14 +29,18 @@ public class Arch implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 
+	@NotEmpty
 	@Column(nullable = false)
 	private String begin;
 
+	@NotEmpty
 	@Column(nullable = false)
 	private String end;
 
+	@NotNull
+	@Min(value = 1)
 	@Column(nullable = false)
 	private int distance;
 
@@ -46,10 +55,8 @@ public class Arch implements Serializable {
 	@VisibleForTesting
 	public Arch(@NotNull final String begin, @NotNull final String end,
 			final int distance, @NotNull final Map map) {
-		checkArgument(begin != null && !begin.isEmpty(),
-				"begin cannot be null or empty");
-		checkArgument(end != null && !end.isEmpty(),
-				"end cannot be null or empty");
+		checkArgument(!isNullOrEmpty(begin), "begin cannot be null or empty");
+		checkArgument(!isNullOrEmpty(end), "end cannot be null or empty");
 		checkArgument(distance > 0, "distance must be greater than 0");
 		this.begin = begin;
 		this.end = end;
@@ -80,7 +87,7 @@ public class Arch implements Serializable {
 			return false;
 		}
 		final Arch otherArch = (Arch) obj;
-		return otherArch.begin.equals(begin) && otherArch.end.equals(end);
+		return equal(otherArch.begin, begin) && equal(otherArch.end, end);
 	}
 
 	@Override
