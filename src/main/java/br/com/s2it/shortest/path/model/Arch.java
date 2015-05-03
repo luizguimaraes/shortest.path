@@ -32,11 +32,11 @@ public class Arch implements Serializable {
 	private Integer id;
 
 	@NotEmpty
-	@Column(nullable = false)
+	@Column(nullable = false, length = 10)
 	private String begin;
 
 	@NotEmpty
-	@Column(nullable = false)
+	@Column(nullable = false, length = 10)
 	private String end;
 
 	@NotNull

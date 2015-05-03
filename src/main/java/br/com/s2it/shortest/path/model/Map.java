@@ -26,7 +26,7 @@ public class Map {
 	private Integer id;
 
 	@NotEmpty
-	@Column(nullable = true)
+	@Column(nullable = true, unique = true, length = 10)
 	private String name;
 
 	@NotEmpty
