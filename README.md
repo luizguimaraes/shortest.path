@@ -1,4 +1,5 @@
-# shortest.path
+# shortest.path ![travis image](https://travis-ci.org/luizguimaraes/shortest.path.svg?branch=master)
+
 Este é um projeto maven, utilizando Spring Boot, Spring Data JPA e H2 database.
 Requisitos:
 - JDK 7
