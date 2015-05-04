@@ -8,7 +8,7 @@ Para gerar o jar do projeto:
 - mvn clean package
 
 Para executar o jar:
-- java -jar shortest.path-0.0.1-SNAPSHOT.jar
+- java -jar shortest.path-0.0.2-SNAPSHOT.jar
 
 Para executar a partir do projeto
 - mvn spring-boot:run
