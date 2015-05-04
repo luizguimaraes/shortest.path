@@ -1,9 +1,1 @@
 language: java
-
-deploy:
-  provider: releases
-  api_key:
-    secure: 956ec419ff3902a78997c093bb3fa4dca203350e
-  file: target/shortest.path-0.0.1-SNAPSHOT.jar
-  on:
-    tags: true
